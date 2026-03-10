@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevLinks - Kauã</title>
+    
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --text-color: white;
+        --bg-url: url('./assets/bg-mobile.jpg'); 
+        --stroke-color: rgba(255, 255, 255, 0.5);
+        --surface-color: rgba(255, 255, 255, 0.08);
+        --surface-color-hover: rgba(255, 255, 255, 0.2);
+        --highlight-color: rgba(255, 255, 255, 0.2);
+        /* Ícone da Lua embutido para não depender de imagens externas */
+        --switch-bg-url: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23121214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>');
+      }
+
+      .light {
+        --text-color: black;
+        --bg-url: url('./assets/bg-mobile-light.jpg');
+        --stroke-color: rgba(0, 0, 0, 0.5);
+        --surface-color: rgba(0, 0, 0, 0.08);
+        --surface-color-hover: rgba(0, 0, 0, 0.15);
+        --highlight-color: rgba(0, 0, 0, 0.1);
+        --switch-bg-url: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>');
+      }
+
+      body {
+        background: var(--bg-url) no-repeat top center/cover, radial-gradient(circle at 50% 0%, #2a2a2e 0%, #121214 60%);
+        background-color: #121214; 
+        min-height: 100vh;
+        color: var(--text-color);
+        font-family: "Inter", sans-serif;
+        transition: background 0.5s ease, color 0.5s ease;
+      }
+
+      #container {
+        width: 100%;
+        max-width: 588px;
+        margin: 56px auto 0px;
+        padding: 0 24px;
+        animation: fadeUp 0.8s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      #profile {
+        text-align: center;
+        padding: 24px;
+      }
+
+      #profile img {
+        width: 112px;
+        height: 112px;
+        object-fit: cover;
+        display: block;
+        margin: auto;
+        border-radius: 50%;
+        border: 2px solid var(--stroke-color);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease;
+        cursor: pointer;
+      }
+
+      #profile img:hover {
+        transform: scale(1.08) rotate(-2deg);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        border-color: var(--text-color);
+      }
+
+      #profile p {
+        font-weight: 500;
+        line-height: 24px;
+        margin-top: 16px;
+        letter-spacing: 0.5px;
+      }
+
+    
+      #switch {
+        position: relative;
+        width: 64px;
+        margin: 12px auto;
+        cursor: pointer;
+      }
+
+      #switch button {
+        width: 32px;
+        height: 32px;
+        background: white var(--switch-bg-url) no-repeat center;
+        border: none;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        z-index: 1;
+        transform: translateY(-50%);
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background 0.3s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        cursor: pointer;
+      }
+
+      .light #switch button {
+        background-color: #121214;
+        transform: translateY(-50%) translateX(32px);
+      }
+
+      #switch span {
+        display: block;
+        width: 64px;
+        height: 24px;
+        background: var(--surface-color);
+        border: 1px solid var(--stroke-color);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 9999px;
+        transition: background 0.3s ease;
+      }
+
+      #switch:hover span {
+        background: var(--surface-color-hover);
+      }
+
+    
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px 0;
+      }
+
+      ul li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 24px;
+        background: var(--surface-color);
+        border: 1px solid var(--stroke-color);
+        border-radius: 12px;
+        
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        text-decoration: none;
+        font-weight: 600;
+        color: var(--text-color);
+        transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      ul li a:hover {
+        background: var(--surface-color-hover);
+        border-color: var(--text-color);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+    
+      #social-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 24px 0;
+        font-size: 28px;
+      }
+
+      #social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px;
+        border-radius: 50%;
+        color: var(--text-color);
+        transition: background 0.3s, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      #social-links a:hover {
+        background: var(--highlight-color);
+        transform: scale(1.15) translateY(-2px);
+      }
+
+      
+      footer {
+        text-align: center;
+        font-size: 14px;
+        padding: 24px 0;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+
+      footer:hover {
+        opacity: 1;
+      }
+
+      footer a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+     
+      @media (min-width: 700px) {
+        :root {
+          --bg-url: url('./assets/bg-desktop.jpg');
+        }
+        .light {
+          --bg-url: url('./assets/bg-desktop-light.jpg');
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      
+      <!-- Secção do Perfil -->
+      <div id="profile">
+        <img
+          src="Gemini_Generated_Image_kmgm7ukmgm7ukmgm.png"
+          alt="Fotografia do Kauã a sorrir, com camisa polo branca."
+        />
+        <p>@kauafranca00</p>
+      </div>
+
+      <!-- Botão de Trocar Tema (Claro/Escuro) -->
+      <div id="switch" onclick="toggleMode()">
+        <button></button>
+        <span></span>
+      </div>
+
+      <!-- Lista de Ligações -->
+      <ul>
+        <li>
+          <a href="#" target="_blank">🚀 Conheça meus Projetos</a>
+        </li>
+        <li>
+          <a href="https://github.com/kauafranca00" target="_blank">👨‍💻 Veja meu portfólio no GitHub</a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/kauã-frança-718061334/" target="_blank">💼 Meu LinkedIn</a>
+        </li>
+      </ul>
+
+      <!-- Ícones das Redes Sociais -->
+      <div id="social-links">
+        <a href="https://github.com/kauafranca00" target="_blank">
+          <ion-icon name="logo-github"></ion-icon>
+        </a>
+
+        <a href="https://instagram.com/kauafranca00" target="_blank">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a>
+
+        <a href="https://www.linkedin.com/in/kauã-frança-718061334/" target="_blank">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </a>
+      </div>
+
+      <!-- Rodapé -->
+      <footer>
+        Feito com ♥ por <a href="https://github.com/kauafranca00" target="_blank">Kauã</a>
+      </footer>
+    </div>
+
+    <!-- Scripts dos Ícones (Ionicons) -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <!-- Biblioteca de Efeito 3D (Vanilla Tilt) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <!-- Todo o seu JavaScript está agora aqui dentro -->
+    <script>
+      // Função para alternar o tema Claro/Escuro
+      function toggleMode() {
+        const html = document.documentElement;
+        html.classList.toggle("light");
+
+        const img = document.querySelector("#profile img");
+
+        // Manter a mesma imagem em ambos os temas (como estava a utilizar "image.png")
+        if (html.classList.contains("light")) {
+          img.setAttribute("src", "image.png");
+        } else {
+          img.setAttribute("src", "image.png");
+        }
+      }
+
+      // Inicializa o efeito 3D nas ligações com um reflexo de luz
+      VanillaTilt.init(document.querySelectorAll("ul li a"), {
+        max: 10,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.2,
+      });
+
+      // Adiciona um efeito especial na fotografia de perfil
+      VanillaTilt.init(document.querySelector("#profile img"), {
+        max: 20,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.4,
+        scale: 1.05
+      });
+
+      // Saudação Dinâmica com base na hora do dia
+      window.onload = () => {
+        const profileDiv = document.querySelector("#profile");
+        const greetingText = document.createElement("p");
+        greetingText.style.fontSize = "0.85rem";
+        greetingText.style.opacity = "0.7";
+        greetingText.style.margin = "-5px 0 5px 0";
+        greetingText.style.fontWeight = "600";
+        
+        const hour = new Date().getHours();
+        if (hour >= 5 && hour < 12) greetingText.innerText = "Bom dia! ☀️";
+        else if (hour >= 12 && hour < 18) greetingText.innerText = "Boa tarde! ☕";
+        else greetingText.innerText = "Boa noite! 🌙";
+        
+        // Insere a saudação logo acima do @nome
+        const userName = profileDiv.querySelector("p");
+        profileDiv.insertBefore(greetingText, userName);
+      };
+    </script>
+  </body>
+</html>
